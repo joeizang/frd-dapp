@@ -7,6 +7,7 @@ import Alert from '@mui/material/Alert'
 import { ShowBlockChainInfo } from './BlockchainInfo'
 import { DappContext } from './DappContext'
 import { ethers } from 'ethers'
+import { Connectdapp } from './Connectdapp'
 
 function App() {
   const [showSnackbar, toggleShowSnackbar] = useState<boolean>(false)
@@ -19,15 +20,27 @@ function App() {
     ethers.providers.JsonRpcSigner | undefined
   >()
 
+  const checkNetworkChainId = async (p: ethers.providers.Web3Provider) => {
+    const network = await p.getNetwork()
+    console.log({ network })
+    if (network && network.chainId !== 1 && network.name !== 'homestead') {
+      toggleShowSnackbar(true)
+    }
+  }
+
   const connectToMetamask = async () => {
     console.log({ metamask: window.ethereum })
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const getAccount = await provider.send('eth_requestAccounts', [])
-    console.log({ getAccount })
+    console.log(`${getAccount[0]}`)
     const signer = provider.getSigner()
     setProvider(provider)
     setSigner(signer)
+    setWalletAddress(getAccount[0])
+    await checkNetworkChainId(provider)
   }
+
+  console.log({ signer, provider })
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleClose(event?: React.SyntheticEvent | Event, reason?: string) {
@@ -40,24 +53,23 @@ function App() {
   }
 
   return (
-    <DappContext.Provider value={{ provider, signer, walletAddress }}>
+    <DappContext.Provider
+      value={{ connectToMetamask, provider, signer, walletAddress }}
+    >
       <Container>
         <Box>
-          {/* <Button
-          size={'large'}
-          variant={'contained'}
-          sx={{ borderRadius: '50%', padding: 5 }}
-          onClick={connectToMetamask}
-        >
-          <Typography variant={'button'}>Connect to Metamask</Typography>
-        </Button> */}
+          <Connectdapp />
           <ShowBlockChainInfo />
         </Box>
 
-        <Snackbar open={showSnackbar} autoHideDuration={5000}>
+        <Snackbar
+          open={showSnackbar}
+          autoHideDuration={2000}
+          anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+        >
           <Alert severity={'error'} onClose={handleClose}>
-            <Typography variant={'button'} sx={{ padding: 3 }}>
-              You do not have Metamask installed in your browser
+            <Typography variant={'button'} sx={{ padding: 1 }}>
+              You are not connected to mainnet via Metamask.
             </Typography>
           </Alert>
         </Snackbar>

@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import { useState } from 'react'
+import { DappContext } from '../DappContext'
+import { useContext, useState } from 'react'
 
 /**
  * What do I need to do in this button?
@@ -17,6 +18,7 @@ import { useState } from 'react'
 
 function ConnectButton() {
   const [buttonText, setButtonText] = useState<string>('Connect')
+  const { connectToMetamask } = useContext(DappContext)
   return (
     <>
       <Button
@@ -27,6 +29,7 @@ function ConnectButton() {
           height: 100,
           padding: 3,
         }}
+        onClick={connectToMetamask}
       >
         <Typography variant={'button'} fontWeight={'bold'}>
           {buttonText}
