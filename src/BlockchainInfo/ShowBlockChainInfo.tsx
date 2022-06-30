@@ -12,7 +12,6 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import EngineeringIcon from '@mui/icons-material/Engineering'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
-import { ethers } from 'ethers'
 
 export function ShowBlockChainInfo() {
   const { provider } = useContext(DappContext)
