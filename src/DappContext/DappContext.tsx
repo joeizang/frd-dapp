@@ -3,8 +3,9 @@ import { createContext } from 'react'
 
 export interface DappContextShape {
   connectToMetamask: () => Promise<void>
-  provider: ethers.providers.Web3Provider | undefined
-  signer: ethers.providers.JsonRpcSigner | undefined
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  provider: any
+  signer: ethers.providers.JsonRpcSigner
   walletAddress: string
 }
 
