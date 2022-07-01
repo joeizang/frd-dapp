@@ -28,14 +28,6 @@ export function ShowBlockChainInfo() {
   )
 
   useEffect(() => {
-    // const run = async () => {
-    //   const blknos = await provider.getBlockNumber()
-    //   setBlockNumber(blknos)
-    // }
-    // const getInfo = async () => {
-    //   await run()
-    //   setBlockInfo(await getBlockInfo(blockNumber))
-    // }
     setInterval(async () => {
       const blknos = provider.getBlockNumber().then((result: number) => {
         return result

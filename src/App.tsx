@@ -8,6 +8,7 @@ import { ShowBlockChainInfo } from './BlockchainInfo'
 import { DappContext } from './DappContext'
 import { ethers } from 'ethers'
 import { Connectdapp } from './Connectdapp'
+import { DaiTransferEvent } from './DaiTransferEvent'
 
 function App() {
   const [showSnackbar, toggleShowSnackbar] = useState<boolean>(false)
@@ -54,6 +55,7 @@ function App() {
         <Box>
           <Connectdapp />
           <ShowBlockChainInfo />
+          <DaiTransferEvent />
         </Box>
 
         <Snackbar
