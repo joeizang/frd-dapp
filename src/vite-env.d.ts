@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /// <reference types="vite/client" />
 
 import { BigNumber } from 'ethers'
 
 declare global {
   interface Window {
-    ethereum: EthereumProvider
+    ethereum: any
   }
 }
 

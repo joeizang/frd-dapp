@@ -9,6 +9,7 @@ import { DappContext } from './DappContext'
 import { ethers } from 'ethers'
 import { Connectdapp } from './Connectdapp'
 import { DaiTransferEvent } from './DaiTransferEvent'
+import { Navbar } from './Navbar'
 
 function App() {
   const [showSnackbar, toggleShowSnackbar] = useState<boolean>(false)
@@ -27,11 +28,12 @@ function App() {
       toggleShowSnackbar(true)
     }
   }
-
+  // console.log(provider.provider.host)
   const connectToMetamask = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const getAccount = await provider.send('eth_requestAccounts', [])
     const signer = provider.getSigner()
+
     setProvider(provider)
     setSigner(signer)
     setWalletAddress(getAccount[0])
@@ -52,6 +54,7 @@ function App() {
       value={{ connectToMetamask, provider, signer, walletAddress }}
     >
       <Container>
+        <Navbar />
         <Box>
           <Connectdapp />
           <ShowBlockChainInfo />

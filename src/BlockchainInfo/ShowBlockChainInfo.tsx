@@ -12,6 +12,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import EngineeringIcon from '@mui/icons-material/Engineering'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
+import BlockNumber from './BlockNumber'
 
 export function ShowBlockChainInfo() {
   const { provider } = useContext(DappContext)
@@ -21,18 +22,17 @@ export function ShowBlockChainInfo() {
   const getBlockInfo = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async (block: any) => {
-      provider.ge
       return await provider.getBlock(block)
     },
     [provider],
   )
 
   useEffect(() => {
+    // const accounts = provider.listAccounts()
+    // console.log({ accounts })
     setInterval(async () => {
-      const blknos = provider.getBlockNumber().then((result: number) => {
-        return result
-      })
-      setBlockNumber(await blknos)
+      const blknos = await provider.getBlockNumber()
+      setBlockNumber(blknos)
     }, 5000)
     getBlockInfo(blockNumber).then((result) => setBlockInfo(result))
   }, [blockNumber, getBlockInfo, provider])
@@ -102,9 +102,7 @@ export function ShowBlockChainInfo() {
           <Box>
             <Typography variant={'h6'}>Last Block Number :</Typography>
           </Box>
-          <Box ml={3}>
-            <Typography variant={'h6'}>{blockNumber}</Typography>
-          </Box>
+          <BlockNumber blockNumber={blockNumber} />
         </Box>
       </Box>
     </>

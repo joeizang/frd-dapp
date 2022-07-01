@@ -19,8 +19,15 @@ const abi = [
 ]
 export function DaiTransferEvent() {
   const { provider } = useContext(DappContext)
-  const contract = new ethers.Contract(daiaddress, abi, provider)
-  
+  const contract = new ethers.Contract(
+    daiaddress,
+    abi,
+    new ethers.providers.Web3Provider(window.ethereum),
+  )
+
+  useEffect(() => {
+    console.log('ran')
+  }, [])
 
   return (
     <>
