@@ -8,8 +8,7 @@ import TagIcon from '@mui/icons-material/Tag'
 import { TransferShape } from './DaiTransferEvent'
 import { ethers } from 'ethers'
 import List from '@mui/material/List'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
+import Paper from '@mui/material/Paper'
 
 interface TransferDataProps {
   payload: TransferShape
@@ -17,44 +16,57 @@ interface TransferDataProps {
 
 export default function TransferDataCard({ payload }: TransferDataProps) {
   return (
-    <Card sx={{ marginTop: 3, width: 250 }} elevation={5}>
-      <CardContent>
-        <List>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ width: 24, height: 24, bgcolor: '#B7352D' }}>
-                <TagIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={payload.transactionHash.substring(0, 12)}
-              secondary={'Transaction Hash'}
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ width: 24, height: 24, bgcolor: '#627313' }}>
-                <PaidIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={`${ethers.utils.formatEther(payload.args[2])}`}
-              secondary={'Tokens transferred For'}
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ width: 24, height: 24, bgcolor: '#215caf' }}>
-                <GridViewIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={payload.blockNumber}
-              secondary={'Block Number'}
-            />
-          </ListItem>
-        </List>
-      </CardContent>
-    </Card>
+    <Paper sx={{ marginTop: 3, width: 280, bgcolor: '#8E6713' }} elevation={5}>
+      <List sx={{ bgColor: '#8E6713' }}>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar sx={{ width: 24, height: 24, bgcolor: '#B7352D' }}>
+              <TagIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            primary={payload.transactionHash.substring(0, 12)}
+            secondary={'Transaction Hash'}
+            primaryTypographyProps={{ fontWeight: 'bold', color: 'whitesmoke' }}
+            secondaryTypographyProps={{
+              fontWeight: 'bold',
+              color: 'whitesmoke',
+            }}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar sx={{ width: 24, height: 24, bgcolor: '#627313' }}>
+              <PaidIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            primary={`${ethers.utils.formatEther(payload.args[2])}`}
+            secondary={'Tokens transferred For'}
+            primaryTypographyProps={{ fontWeight: 'bold', color: 'whitesmoke' }}
+            secondaryTypographyProps={{
+              fontWeight: 'bold',
+              color: 'whitesmoke',
+            }}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar sx={{ width: 24, height: 24, bgcolor: '#215caf' }}>
+              <GridViewIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            primary={payload.blockNumber}
+            secondary={'Block Number'}
+            primaryTypographyProps={{ fontWeight: 'bold', color: 'whitesmoke' }}
+            secondaryTypographyProps={{
+              fontWeight: 'bold',
+              color: 'whitesmoke',
+            }}
+          />
+        </ListItem>
+      </List>
+    </Paper>
   )
 }

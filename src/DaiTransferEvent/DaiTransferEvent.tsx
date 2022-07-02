@@ -51,7 +51,12 @@ export function DaiTransferEvent() {
         </Box>
         <Box mb={3} display={'flex'} justifyContent={'space-between'}>
           <Paper
-            sx={{ borderRadius: 5, display: 'flex', padding: 2 }}
+            sx={{
+              borderRadius: 5,
+              display: 'flex',
+              padding: 2,
+              alignItems: 'center',
+            }}
             elevation={5}
           >
             <Typography variant={'h5'}>DAI Token address :</Typography>

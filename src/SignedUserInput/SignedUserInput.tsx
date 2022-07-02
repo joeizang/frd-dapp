@@ -67,9 +67,10 @@ export function SignedUserInput() {
             alignItems: 'center',
             borderRadius: 5,
             overflow: 'auto',
+            bgcolor: '#6F6F6F',
           }}
         >
-          <Typography flexWrap={'wrap'} variant={'body1'}>
+          <Typography flexWrap={'wrap'} variant={'body1'} fontWeight={'bold'}>
             {signedMessage}
           </Typography>
         </Paper>

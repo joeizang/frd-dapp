@@ -47,7 +47,15 @@ export function ShowBlockChainInfo() {
         display={'flex'}
         justifyContent={'space-between'}
       >
-        <Paper sx={{ padding: 3, borderRadius: 5 }} elevation={5}>
+        <Paper
+          sx={{
+            padding: 3,
+            borderRadius: 5,
+            bgcolor: '#007894',
+            color: 'whitesmoke',
+          }}
+          elevation={5}
+        >
           <Box component={'span'}>
             <Typography variant={'h5'}>Block Information :</Typography>
           </Box>
@@ -60,7 +68,15 @@ export function ShowBlockChainInfo() {
                       <EngineeringIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary={blockInfo.miner} secondary="Miner" />
+                  <ListItemText
+                    primary={blockInfo.miner}
+                    secondary="Miner"
+                    primaryTypographyProps={{ fontWeight: 'bold' }}
+                    secondaryTypographyProps={{
+                      fontWeight: 'bold',
+                      color: 'whitesmoke',
+                    }}
+                  />
                 </ListItem>
                 <ListItem>
                   <ListItemAvatar>
@@ -71,6 +87,11 @@ export function ShowBlockChainInfo() {
                   <ListItemText
                     primary={`${new Date(blockInfo.timestamp * 1000)}`}
                     secondary="Timestamp"
+                    primaryTypographyProps={{ fontWeight: 'bold' }}
+                    secondaryTypographyProps={{
+                      fontWeight: 'bold',
+                      color: 'whitesmoke',
+                    }}
                   />
                 </ListItem>
                 <ListItem>
@@ -79,7 +100,15 @@ export function ShowBlockChainInfo() {
                       <AccessTimeIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary={blockInfo.nonce} secondary="Nonce" />
+                  <ListItemText
+                    primary={blockInfo.nonce}
+                    secondary="Nonce"
+                    primaryTypographyProps={{ fontWeight: 'bold' }}
+                    secondaryTypographyProps={{
+                      fontWeight: 'bold',
+                      color: 'whitesmoke',
+                    }}
+                  />
                 </ListItem>
 
                 <ListItem>
@@ -91,6 +120,11 @@ export function ShowBlockChainInfo() {
                   <ListItemText
                     primary={blockInfo.transactions.length}
                     secondary="Number of Transactions"
+                    primaryTypographyProps={{ fontWeight: 'bold' }}
+                    secondaryTypographyProps={{
+                      fontWeight: 'bold',
+                      color: 'whitesmoke',
+                    }}
                   />
                 </ListItem>
               </List>
@@ -104,6 +138,8 @@ export function ShowBlockChainInfo() {
             padding: 3,
             height: '50px',
             borderRadius: 5,
+            bgcolor: '#007894',
+            color: 'whitesmoke',
           }}
           elevation={5}
         >
