@@ -3365,11 +3365,6 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
   integrity sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==
 
-linq-to-typescript@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/linq-to-typescript/-/linq-to-typescript-10.0.0.tgz#350bddf406f46c7fa8750b3e60ec330229c3e70a"
-  integrity sha512-2DPRBExWNFe3vLfheSQXWdB+UuytZ3Gvry22pzNtU0ONUCnO6aHEc8Ooqev21CaxiTiVx3QFcyT0rKA0ZxMVuQ==
-
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
