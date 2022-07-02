@@ -70,7 +70,12 @@ export function SignedUserInput() {
             bgcolor: '#6F6F6F',
           }}
         >
-          <Typography flexWrap={'wrap'} variant={'body1'} fontWeight={'bold'}>
+          <Typography
+            flexWrap={'wrap'}
+            variant={'body1'}
+            fontWeight={'bold'}
+            color={'whitesmoke'}
+          >
             {signedMessage}
           </Typography>
         </Paper>
