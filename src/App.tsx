@@ -11,17 +11,34 @@ import { Connectdapp } from './Connectdapp'
 import { DaiTransferEvent } from './DaiTransferEvent'
 import { Navbar } from './Navbar'
 
+const daiAddress = '0x6b175474e89094c44da98b954eedeac495271d0f'
+const abi = [
+  // Read-Only Functions
+  'function name() view returns (string)',
+  'function symbol() view returns (string)',
+
+  // Get the account balance
+  'function balanceOf(address) view returns (uint)',
+
+  // Send some of your tokens to someone else
+  'function transfer(address to, uint amount)',
+
+  // An event triggered whenever anyone transfers to someone else
+  'event Transfer(address indexed from, address indexed to, uint amount)',
+]
 function App() {
   const [showSnackbar, toggleShowSnackbar] = useState<boolean>(false)
   const [showSuccessSnackbar, toggleSuccessSnackbar] = useState<boolean>(false)
   const [walletAddress, setWalletAddress] = useState<string>('')
   const [provider, setProvider] = useState<ethers.providers.Web3Provider>(
-    {} as ethers.providers.Web3Provider,
+    new ethers.providers.Web3Provider(window.ethereum),
   )
   const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner>(
     {} as ethers.providers.JsonRpcSigner,
   )
-
+  const [contract, setContract] = useState(
+    new ethers.Contract(daiAddress, abi, provider).connect(provider),
+  )
   const checkNetworkChainId = async (p: ethers.providers.Web3Provider) => {
     const network = await p.getNetwork()
     if (network && network.chainId !== 1 && network.name !== 'homestead') {
@@ -30,7 +47,6 @@ function App() {
   }
   // console.log(provider.provider.host)
   const connectToMetamask = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
     const getAccount = await provider.send('eth_requestAccounts', [])
     const signer = provider.getSigner()
 
@@ -48,15 +64,21 @@ function App() {
     toggleSuccessSnackbar(false)
     toggleShowSnackbar(false)
   }
-
+  console.log({ contract })
   return (
     <DappContext.Provider
-      value={{ connectToMetamask, provider, signer, walletAddress }}
+      value={{
+        connectToMetamask,
+        contract,
+        daiAddress,
+        provider,
+        signer,
+        walletAddress,
+      }}
     >
       <Container>
         <Navbar />
         <Box>
-          <Connectdapp />
           <ShowBlockChainInfo />
           <DaiTransferEvent />
         </Box>

@@ -13,6 +13,7 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import EngineeringIcon from '@mui/icons-material/Engineering'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import BlockNumber from './BlockNumber'
+import Paper from '@mui/material/Paper'
 
 export function ShowBlockChainInfo() {
   const { provider } = useContext(DappContext)
@@ -42,13 +43,13 @@ export function ShowBlockChainInfo() {
         sx={{
           border: '2px solid #cdc',
           borderRadius: 3,
-          marginTop: 5,
+          marginTop: 15,
           padding: 3,
         }}
         display={'flex'}
         justifyContent={'space-between'}
       >
-        <Box display={'flex'} alignItems={'center'}>
+        <Paper sx={{ padding: 3, borderRadius: 5 }} elevation={5}>
           <Box component={'span'}>
             <Typography variant={'h5'}>Block Information :</Typography>
           </Box>
@@ -57,7 +58,7 @@ export function ShowBlockChainInfo() {
               <List>
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>
+                    <Avatar sx={{ width: 32, height: 32, bgcolor: '#215CAF' }}>
                       <EngineeringIcon />
                     </Avatar>
                   </ListItemAvatar>
@@ -65,7 +66,7 @@ export function ShowBlockChainInfo() {
                 </ListItem>
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>
+                    <Avatar sx={{ width: 32, height: 32, bgcolor: '#007894' }}>
                       <CalendarMonthIcon />
                     </Avatar>
                   </ListItemAvatar>
@@ -76,7 +77,7 @@ export function ShowBlockChainInfo() {
                 </ListItem>
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>
+                    <Avatar sx={{ width: 32, height: 32, bgcolor: '#A30774' }}>
                       <AccessTimeIcon />
                     </Avatar>
                   </ListItemAvatar>
@@ -85,7 +86,7 @@ export function ShowBlockChainInfo() {
 
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>
+                    <Avatar sx={{ width: 32, height: 32, bgcolor: '#8E6713' }}>
                       <ReceiptLongIcon />
                     </Avatar>
                   </ListItemAvatar>
@@ -97,13 +98,22 @@ export function ShowBlockChainInfo() {
               </List>
             ) : null}
           </Box>
-        </Box>
-        <Box display={'flex'} alignItems={'center'}>
+        </Paper>
+        <Paper
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: 3,
+            height: '50px',
+            borderRadius: 5,
+          }}
+          elevation={5}
+        >
           <Box>
             <Typography variant={'h6'}>Last Block Number :</Typography>
           </Box>
           <BlockNumber blockNumber={blockNumber} />
-        </Box>
+        </Paper>
       </Box>
     </>
   )
