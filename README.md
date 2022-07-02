@@ -12,5 +12,11 @@ And the app is hosted and can be found here:
 ## Tech Stack
 > Vite, react-ts, @mui/material, @mui/icons-material
 >
-> Ethers.js
+> Ethers.js  
 
+## Powered by
+[Fleek.co](https://fleek.co) free static site hosting  
+[Ethereum Blockchain](https://etherscan.io) The Leading blockchain technology
+[React](https://reactjs.org) The frontend Library of choice.
+[Vite](https://vitejs.dev) Next gen frontend tooling
+[Typescript](https://www.typescriptlang.org/) Strongly typed programming langague, building on javascript for the web at any scale.
