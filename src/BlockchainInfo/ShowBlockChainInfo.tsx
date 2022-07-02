@@ -29,8 +29,6 @@ export function ShowBlockChainInfo() {
   )
 
   useEffect(() => {
-    // const accounts = provider.listAccounts()
-    // console.log({ accounts })
     setInterval(async () => {
       const blknos = await provider.getBlockNumber()
       setBlockNumber(blknos)

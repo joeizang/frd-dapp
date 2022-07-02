@@ -26,8 +26,8 @@ export default function DisplayTransferInfo() {
     <>
       <Grid container spacing={2} direction={'row'}>
         {transferData && transferData.length > 0
-          ? transferData.map((data) => (
-              <Grid item key={data.transactionIndex}>
+          ? transferData.map((data, idx) => (
+              <Grid item key={idx}>
                 <TransferDataCard payload={data} />
               </Grid>
             ))

@@ -7,9 +7,9 @@ import Alert from '@mui/material/Alert'
 import { ShowBlockChainInfo } from './BlockchainInfo'
 import { DappContext } from './DappContext'
 import { ethers } from 'ethers'
-import { Connectdapp } from './Connectdapp'
 import { DaiTransferEvent } from './DaiTransferEvent'
 import { Navbar } from './Navbar'
+import { SignedUserInput } from './SignedUserInput'
 
 const daiAddress = '0x6b175474e89094c44da98b954eedeac495271d0f'
 const abi = [
@@ -34,9 +34,9 @@ function App() {
     new ethers.providers.Web3Provider(window.ethereum),
   )
   const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner>(
-    {} as ethers.providers.JsonRpcSigner,
+    provider.getSigner(),
   )
-  const [contract, setContract] = useState(
+  const [contract] = useState(
     new ethers.Contract(daiAddress, abi, provider).connect(provider),
   )
   const checkNetworkChainId = async (p: ethers.providers.Web3Provider) => {
@@ -45,10 +45,8 @@ function App() {
       toggleShowSnackbar(true)
     }
   }
-  // console.log(provider.provider.host)
   const connectToMetamask = async () => {
     const getAccount = await provider.send('eth_requestAccounts', [])
-    const signer = provider.getSigner()
 
     setProvider(provider)
     setSigner(signer)
@@ -80,6 +78,7 @@ function App() {
         <Navbar />
         <Box>
           <ShowBlockChainInfo />
+          <SignedUserInput />
           <DaiTransferEvent />
         </Box>
 
