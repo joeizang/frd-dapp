@@ -10,15 +10,15 @@ import { BaseSyntheticEvent, useContext, useState } from 'react'
 export function SignedUserInput() {
   const [message, setMessage] = useState('')
   const [signedMessage, setSignedMessage] = useState('')
-  const { signer } = useContext(DappContext)
+  const { signer, connectToMetamask } = useContext(DappContext)
 
   const signMessage = async (msg: string) => {
     if (message && message.length > 3) {
+      await connectToMetamask()
       setSignedMessage(await signer.signMessage(msg))
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSigning = (evt: BaseSyntheticEvent) => {
     setMessage(evt.target.value)
   }
@@ -53,7 +53,7 @@ export function SignedUserInput() {
             variant={'contained'}
             sx={{ width: 60, height: 60, borderRadius: '50%', marginLeft: 5 }}
             type={'submit'}
-            onClick={(e) => signMessage(message)}
+            onClick={() => signMessage(message)}
           >
             <Typography variant={'button'}>Sign</Typography>
           </Button>

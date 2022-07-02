@@ -30,10 +30,10 @@ function App() {
   const [showSnackbar, toggleShowSnackbar] = useState<boolean>(false)
   const [showSuccessSnackbar, toggleSuccessSnackbar] = useState<boolean>(false)
   const [walletAddress, setWalletAddress] = useState<string>('')
-  const [provider, setProvider] = useState<ethers.providers.Web3Provider>(
+  const [provider] = useState<ethers.providers.Web3Provider>(
     new ethers.providers.Web3Provider(window.ethereum),
   )
-  const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner>(
+  const [signer] = useState<ethers.providers.JsonRpcSigner>(
     provider.getSigner(),
   )
   const [contract] = useState(
@@ -48,8 +48,6 @@ function App() {
   const connectToMetamask = async () => {
     const getAccount = await provider.send('eth_requestAccounts', [])
 
-    setProvider(provider)
-    setSigner(signer)
     setWalletAddress(getAccount[0])
     await checkNetworkChainId(provider)
   }
@@ -62,7 +60,6 @@ function App() {
     toggleSuccessSnackbar(false)
     toggleShowSnackbar(false)
   }
-  console.log({ contract })
   return (
     <DappContext.Provider
       value={{

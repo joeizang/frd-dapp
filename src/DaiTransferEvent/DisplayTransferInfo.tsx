@@ -12,7 +12,6 @@ export default function DisplayTransferInfo() {
       'Transfer',
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (event: any, obj: any, amount: any, eventData: TransferShape) => {
-        console.log({ event, obj, amount, eventData })
         setTransferData([eventData, ...transferData])
       },
     )
@@ -21,7 +20,6 @@ export default function DisplayTransferInfo() {
       contract.removeAllListeners('Transfer')
     }
   }, [contract, transferData])
-  console.log({ transferData })
   return (
     <>
       <Grid container spacing={2} direction={'row'}>
