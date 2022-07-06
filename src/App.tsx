@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
 import { ShowBlockChainInfo } from './BlockchainInfo'
@@ -28,28 +28,54 @@ const abi = [
 ]
 function App() {
   const [showSnackbar, toggleShowSnackbar] = useState<boolean>(false)
-  const [showSuccessSnackbar, toggleSuccessSnackbar] = useState<boolean>(false)
   const [walletAddress, setWalletAddress] = useState<string>('')
-  const [provider] = useState<ethers.providers.Web3Provider>(
+  const [provider, setProvider] = useState<ethers.providers.Web3Provider>(
     new ethers.providers.Web3Provider(window.ethereum),
   )
-  const [signer] = useState<ethers.providers.JsonRpcSigner>(
-    provider.getSigner(),
+  const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner>(
+    new ethers.providers.Web3Provider(window.ethereum).getSigner(),
   )
-  const [contract] = useState(
+  const [contract, setContract] = useState(
     new ethers.Contract(daiAddress, abi, provider).connect(provider),
   )
-  const checkNetworkChainId = async (p: ethers.providers.Web3Provider) => {
-    const network = await p.getNetwork()
+
+  const checkNetworkChainId = useCallback(async () => {
+    const network = await provider.getNetwork()
     if (network && network.chainId !== 1 && network.name !== 'homestead') {
       toggleShowSnackbar(true)
     }
-  }
+  }, [provider])
+
+  useEffect(() => {
+    const eth = window.ethereum
+
+    if (eth === undefined) {
+      toggleShowSnackbar(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    const run = async () => {
+      await checkNetworkChainId()
+    }
+    run()
+  }, [checkNetworkChainId])
+
+  useEffect(() => {
+    window.ethereum.on('chainChanged', (chainId: any) => {
+      window.location.reload()
+    })
+    return () => {
+      window.ethereum.removeListener('chainChanged', (chainId: any) => {
+        console.log('removed!!')
+      })
+    }
+  }, [])
+
   const connectToMetamask = async () => {
     const getAccount = await provider.send('eth_requestAccounts', [])
-
     setWalletAddress(getAccount[0])
-    await checkNetworkChainId(provider)
+    await checkNetworkChainId()
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,49 +83,59 @@ function App() {
     if (reason === 'clickaway') {
       return
     }
-    toggleSuccessSnackbar(false)
     toggleShowSnackbar(false)
   }
+
   return (
-    <DappContext.Provider
-      value={{
-        connectToMetamask,
-        contract,
-        daiAddress,
-        provider,
-        signer,
-        walletAddress,
-      }}
-    >
-      <Container>
-        <Navbar />
-        <Box>
-          <ShowBlockChainInfo />
-          <SignedUserInput />
-          <DaiTransferEvent />
-        </Box>
-
-        <Snackbar
-          open={showSnackbar}
-          autoHideDuration={2000}
-          anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+    <>
+      {showSnackbar === true ? (
+        <Container>
+          <Snackbar
+            open={showSnackbar}
+            autoHideDuration={5000}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          >
+            <Alert severity={'error'} onClose={handleClose}>
+              <Typography variant={'button'} sx={{ padding: 3 }}>
+                You must be on Ethereum mainnet for the application to work!!
+              </Typography>
+            </Alert>
+          </Snackbar>
+        </Container>
+      ) : (
+        <DappContext.Provider
+          value={{
+            connectToMetamask,
+            contract,
+            daiAddress,
+            provider,
+            signer,
+            walletAddress,
+          }}
         >
-          <Alert severity={'error'} onClose={handleClose}>
-            <Typography variant={'button'} sx={{ padding: 1 }}>
-              You are not connected to mainnet via Metamask.
-            </Typography>
-          </Alert>
-        </Snackbar>
+          <Container>
+            <Navbar />
+            <Box>
+              <ShowBlockChainInfo />
+              <SignedUserInput />
+              <DaiTransferEvent />
+            </Box>
 
-        <Snackbar open={showSuccessSnackbar} autoHideDuration={5000}>
-          <Alert severity={'success'} onClose={handleClose}>
-            <Typography variant={'button'} sx={{ padding: 3 }}>
-              You do have Metamask, WHOOOO!!!
-            </Typography>
-          </Alert>
-        </Snackbar>
-      </Container>
-    </DappContext.Provider>
+            <Snackbar
+              open={showSnackbar}
+              autoHideDuration={2000}
+              anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+            >
+              <Alert severity={'error'} onClose={handleClose}>
+                <Typography variant={'button'} sx={{ padding: 1 }}>
+                  You are not connected to mainnet via Metamask.
+                </Typography>
+              </Alert>
+            </Snackbar>
+          </Container>
+        </DappContext.Provider>
+      )}
+    </>
   )
 }
 
