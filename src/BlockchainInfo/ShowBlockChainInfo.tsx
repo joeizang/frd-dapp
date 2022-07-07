@@ -46,6 +46,7 @@ export function ShowBlockChainInfo() {
         }}
         display={'flex'}
         justifyContent={'space-between'}
+        flexWrap={'wrap'}
       >
         <Paper
           sx={{
@@ -53,6 +54,7 @@ export function ShowBlockChainInfo() {
             borderRadius: 5,
             bgcolor: '#007894',
             color: 'whitesmoke',
+            marginBottom: 3,
           }}
           elevation={5}
         >

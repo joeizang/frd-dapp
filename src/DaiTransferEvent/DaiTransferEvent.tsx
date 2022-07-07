@@ -49,13 +49,19 @@ export function DaiTransferEvent() {
             Transfer Event Summary
           </Typography>
         </Box>
-        <Box mb={3} display={'flex'} justifyContent={'space-between'}>
+        <Box
+          mb={3}
+          display={'flex'}
+          justifyContent={'space-between'}
+          flexWrap={'wrap'}
+        >
           <Paper
             sx={{
               borderRadius: 5,
               display: 'flex',
               padding: 2,
               alignItems: 'center',
+              marginBottom: 3,
             }}
             elevation={5}
           >
